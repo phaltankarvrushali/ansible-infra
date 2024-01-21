@@ -1,0 +1,18 @@
+---
+- name: Install MySQL Server
+  yum:
+    name: mysql-server
+    state: present
+
+- name: Create MySQL Database
+  mysql_db:
+    name: mydatabase
+    state: present
+  become_user: root
+
+- name: Set MySQL root password
+  mysql_user:
+    name: root
+    password: "{{ database_password }}"
+    host: localhost
+  become_user: root

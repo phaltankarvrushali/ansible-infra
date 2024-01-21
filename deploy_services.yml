@@ -1,0 +1,11 @@
+---
+- name: Deploy Web and Database Services
+  hosts: ec2_instances
+  become: true
+  vars:
+    database_password: <>
+
+  roles:
+    - common
+    - web_service
+    - database_service

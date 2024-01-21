@@ -1,0 +1,28 @@
+---
+- name: Install Apache web server
+  yum:
+    name: httpd
+    state: present
+
+- name: Install Python packages
+  pip:
+    name: "{{ item }}"
+  loop:
+    - pymysql
+
+- name: Start and enable web server
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Restart web server
+  service:
+    name: httpd
+    state: restarted
+
+- name: Configure web service
+  template:
+    src: templates/index.html.j2
+    dest: /var/www/html/index.html
+
